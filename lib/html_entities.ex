@@ -44,6 +44,8 @@ defmodule HtmlEntities do
     acc
   end
 
+  defp decode(nil), do: nil
+
   defp decode_entity(<<"#x", c, rest::binary>>) when c in ?0..?9 or c in ?a..?f or c in ?A..?F do
     case Integer.parse(<<c, rest::binary>>, 16) do
       {number, ";" <> rest} -> {<<number::utf8>>, rest}
